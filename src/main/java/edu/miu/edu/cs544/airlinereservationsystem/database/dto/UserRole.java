@@ -1,12 +1,14 @@
 package edu.miu.edu.cs544.airlinereservationsystem.database.dto;
 
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.util.List;
 
 @Entity
 @Data
+@NoArgsConstructor
 public abstract class UserRole {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)

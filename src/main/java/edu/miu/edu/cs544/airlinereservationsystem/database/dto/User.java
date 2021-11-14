@@ -5,10 +5,7 @@ import lombok.NoArgsConstructor;
 import lombok.NonNull;
 
 import javax.persistence.*;
-import javax.validation.constraints.Email;
-import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Past;
-import javax.validation.constraints.Size;
+import javax.validation.constraints.*;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -21,21 +18,36 @@ public class User {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @NonNull
+    @NotNull(message = "lastName cannot be null")
+    @NotBlank(message = "lastName cannot be empty")
     @Size(min = 1)
     private String firstName;
 
-    @NonNull
+    @NotNull(message = "lastName cannot be null")
+    @NotBlank(message = "lastName cannot be empty")
     @Size(min = 1)
     private String lastName;
 
-    @NotNull
+    @NotNull(message = "date of birth cannot be null")
+    @NotBlank(message = "date of birth cannot be empty")
     @Past
     private LocalDate dob;
 
-    @NotNull
+    @NotNull(message = "email cannot be null")
+    @NotBlank(message = "email cannot be empty")
     @Email
     private String email;
+
+    @NotNull(message = "username cannot be null")
+    @NotBlank(message = "username cannot be empty")
+    @Column(unique=true)
+    private String username;
+
+    @Size(min = 4, max = 20)
+    @NotNull(message = "password cannot be null")
+    @NotBlank(message = "password cannot be empty")
+    @Pattern(regexp = "(?=.*?[0-9])(?=.*?[A-Za-z]).+", message = "password must contain at least  one character and number")
+    private String password;
 
     @NotNull
     @OneToMany

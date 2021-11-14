@@ -1,22 +1,25 @@
 package edu.miu.edu.cs544.airlinereservationsystem.database.dto;
 
+import lombok.Data;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
 @Entity
 @SecondaryTable(name = "History")
+@Data
 public class Airline {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @NotNull
+    @NotNull(message = "airline code cannot be null")
     @Column(unique = true, nullable = false)
     @Size(min=2,max=3)
     private String code;
 
-    @NotNull
+    @NotNull(message = "airline name cannot be null")
     @Column(nullable = false)
     private String name;
 
