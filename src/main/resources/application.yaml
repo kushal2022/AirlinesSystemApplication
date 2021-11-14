@@ -1,0 +1,27 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /airline-reservation-system/v1
+spring:
+  application:
+    name: airline-reservation-system
+  datasource:
+    url: jdbc:mysql://localhost/airlinesdb?createDatabaseIfNotExist=true&autoReconnect=true&useSSL=false
+    username: root
+    password: P@ssw0rd
+    driverClassName: com.mysql.cj.jdbc.Driver
+    hikari:
+      maximumPoolSize: 10
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQL8Dialect
+    generate-ddl: true
+    hibernate:
+      naming:
+        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    show-sql: true
+logging:
+  file:
+    name: "/Coding/Logging/${spring.application.name}/log"
