@@ -1,12 +1,12 @@
 package edu.miu.edu.cs544.airlinereservationsystem.services;
 
-import edu.miu.edu.cs544.airlinereservationsystem.database.dao.AirportRepository;
+import edu.miu.edu.cs544.airlinereservationsystem.database.dao.ReservationRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 @Service
-public class AirportServiceImpl implements AirportService {
+public class ReservationServiceImpl implements ReservationService {
 
     @Autowired
-    AirportRepository repository;
+    ReservationRepository repository;
 }
