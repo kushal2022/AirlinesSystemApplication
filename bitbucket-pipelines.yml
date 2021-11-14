@@ -1,0 +1,26 @@
+image: maven:3.6.3
+
+pipelines:
+  branches:
+    '{master,develop}':
+      - parallel:
+          - step:
+              name: Build and Test
+              caches:
+                - maven
+              script:
+                - mvn -B verify --file pom.xml
+                - mvn clean install
+              after-script:
+                # Collect checkstyle results, if any, and convert to Bitbucket Code Insights.
+                - pipe: atlassian/checkstyle-report:0.3.0
+          - step:
+              name: Security Scan
+              script:
+                - pipe: atlassian/git-secrets-scan:0.5.1
+  pull-requests:
+    '**': # when pull request is created against any branch.
+      - step:
+          name: executing build for a PR.
+          script:
+            - mvn clean install
