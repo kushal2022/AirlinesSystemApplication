@@ -8,8 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
-
 @RestController
 @RequestMapping("/reservations")
 public class ReservationController {
@@ -23,22 +21,28 @@ public class ReservationController {
         return new ResponseEntity<>(savedReservation.getId(), HttpStatus.CREATED);
     }
 
-//    @RequestMapping(method = RequestMethod.GET)
-//    public ResponseEntity<List<Role>> getRoles() {
-//        List<Role> roles = service.getRoles();
-//        return new ResponseEntity<>(roles, HttpStatus.OK);
-//    }
-//
-//    @RequestMapping(value = "/{id}", method = RequestMethod.PUT, consumes = "application/json")
-//    public ResponseEntity<Void> updateRole(@PathVariable Long id, @Validated @RequestBody Role role) {
-//        service.updateRole(id, role);
-//        return new ResponseEntity<>(HttpStatus.OK);
-//    }
-//
-//    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-//    public ResponseEntity<Void> deleteRole(@PathVariable Long id) {
-//        service.deleteRole(id);
-//        return new ResponseEntity<>(HttpStatus.OK);
-//    }
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public ResponseEntity<Reservation> getReservationDetails(@PathVariable Long id) {
+        Reservation reservation = service.getReservation(id);
+        return new ResponseEntity<>(reservation, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT, consumes = "application/json")
+    public ResponseEntity<Void> updateRole(@PathVariable Long id, @Validated @RequestBody Reservation reservation) {
+        service.updateReservation(id, reservation);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.POST)
+    public ResponseEntity<Void> confirmReservation(@PathVariable Long id) {
+        service.confirmReservation(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<Void> cancelReservation(@PathVariable Long id) {
+        service.cancelReservation(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 
 }
