@@ -36,7 +36,7 @@ public class AirlineServiceImpl implements AirlineService {
         entity.get().setName(airline.getName());
         entity.get().setCode(airline.getCode());
         entity.get().setHistory(airline.getHistory());
-        return repository.save(airline);
+        return repository.save(entity.get());
     }
 
     @Override
