@@ -22,7 +22,7 @@ public class Flight {
     @Column(unique = true, nullable = false)
     private String number;
 
-//    @Size(min = 1, max = 10000)
+    @Column(nullable = false)
     private int capacity;
 
     @NotNull(message = "airline cannot be null")
