@@ -11,6 +11,8 @@ pipelines:
               script:
                 - mvn -B verify --file pom.xml
                 - mvn clean install
+              services:
+                - mysql
               after-script:
                 # Collect checkstyle results, if any, and convert to Bitbucket Code Insights.
                 - pipe: atlassian/checkstyle-report:0.3.0
@@ -24,3 +26,10 @@ pipelines:
           name: executing build for a PR.
           script:
             - mvn clean install
+definitions:
+  services:
+    mysql:
+      image: mysql:5.7
+      variables:
+        MYSQL_DATABASE: airlinesdb
+        MYSQL_ROOT_PASSWORD: P@ssw0rd
