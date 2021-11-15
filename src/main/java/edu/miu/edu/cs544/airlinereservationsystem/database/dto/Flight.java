@@ -6,7 +6,6 @@ import lombok.NoArgsConstructor;
 import javax.persistence.*;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 import java.time.LocalTime;
 
 @Entity
@@ -22,14 +21,12 @@ public class Flight {
     @Column(unique = true, nullable = false)
     private String number;
 
-    @Size(min = 1, max = 10000)
+    @Column(nullable = false)
     private int capacity;
 
-    @NotNull(message = "airline cannot be null")
     @OneToOne(cascade = CascadeType.PERSIST)
     private Airline airline;
 
-    @NotNull(message = "departureAirport cannot be null")
     @OneToOne(cascade = CascadeType.PERSIST)
     private Airport departureAirport;
 

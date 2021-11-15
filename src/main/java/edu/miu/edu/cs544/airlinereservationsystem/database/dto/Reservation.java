@@ -17,15 +17,15 @@ public class Reservation {
     private Long id;
 
     @ManyToOne(cascade ={CascadeType.PERSIST})
-    @JoinColumn(name="passenger_Id")
+    @JoinTable(name = "Reservation_Passenger", joinColumns = {@JoinColumn(name = "reservation_id")},
+            inverseJoinColumns = {@JoinColumn(name = "passenger_Id")})
     private Passenger passenger;
 
     @OneToMany(cascade = CascadeType.PERSIST)
-    @JoinColumn(name = "flight_id")
+    @JoinTable(name = "Reservation_Flight")
     private List<Flight> flight;
 
     @OneToOne(cascade ={CascadeType.PERSIST})
-    @JoinColumn(name="agent_Id")
     private Agent agent;
 
     @Column(nullable = false)

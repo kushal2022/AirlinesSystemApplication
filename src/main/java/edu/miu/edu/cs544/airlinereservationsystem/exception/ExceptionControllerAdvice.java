@@ -37,7 +37,7 @@ public class ExceptionControllerAdvice extends ResponseEntityExceptionHandler {
     @Override
     protected ResponseEntity<Object> handleNoHandlerFoundException(NoHandlerFoundException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
         errorResponse.setCode(404);
-        errorResponse.setMessage("Resource you are looking for does not exist");
+        errorResponse.setMessage("Resource you are looking for does not exist. " + ex.getMessage());
         return ResponseEntity.status(404).body(errorResponse);
     }
 
@@ -45,14 +45,14 @@ public class ExceptionControllerAdvice extends ResponseEntityExceptionHandler {
     protected ResponseEntity<Object> handleExceptionInternal(Exception ex, Object body, HttpHeaders headers, HttpStatus status, WebRequest request) {
 
         errorResponse.setCode(500);
-        errorResponse.setMessage("An error while processing your request");
+        errorResponse.setMessage("An error while processing your request. " + ex.getMessage());
         return ResponseEntity.status(500).body(errorResponse);
     }
 
     @ExceptionHandler(SQLIntegrityConstraintViolationException.class)
     public ResponseEntity<ErrorResponse> handleException(HttpServletRequest request, SQLIntegrityConstraintViolationException ex) {
         errorResponse.setCode(500);
-        errorResponse.setMessage("An error occurred while processing your request");
+        errorResponse.setMessage("An error occurred while processing your request. " + ex.getMessage());
         return ResponseEntity.status(500).body(errorResponse);
     }
 }

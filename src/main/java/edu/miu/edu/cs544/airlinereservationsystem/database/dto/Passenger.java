@@ -1,7 +1,18 @@
 package edu.miu.edu.cs544.airlinereservationsystem.database.dto;
 
-import javax.persistence.Entity;
+import lombok.Data;
+
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 @Entity
-public class Passenger extends UserRole {
+@Data
+public class Passenger extends User {
+
+    @NotNull
+    @OneToOne
+    @JoinColumn(name = "address_id")
+    private Address addresses;
+
+
 }

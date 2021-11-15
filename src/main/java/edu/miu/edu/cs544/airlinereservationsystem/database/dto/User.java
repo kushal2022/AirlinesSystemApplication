@@ -2,17 +2,16 @@ package edu.miu.edu.cs544.airlinereservationsystem.database.dto;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.NonNull;
 
 import javax.persistence.*;
 import javax.validation.constraints.*;
 import java.time.LocalDate;
-import java.util.List;
 
 @Entity
 @Data
 @NoArgsConstructor
-public class User {
+@Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
+public abstract class User {
     @Id
     @Column(name = "id", nullable = false)
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -48,9 +47,4 @@ public class User {
     @NotBlank(message = "password cannot be empty")
     @Pattern(regexp = "(?=.*?[0-9])(?=.*?[A-Za-z]).+", message = "password must contain at least  one character and number")
     private String password;
-
-    @NotNull
-    @OneToMany
-    @JoinColumn(name = "address_id")
-    private List<Address> addresses;
 }
