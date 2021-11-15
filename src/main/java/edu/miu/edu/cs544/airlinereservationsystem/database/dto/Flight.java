@@ -22,7 +22,7 @@ public class Flight {
     @Column(unique = true, nullable = false)
     private String number;
 
-    @Size(min = 1, max = 10000)
+//    @Size(min = 1, max = 10000)
     private int capacity;
 
     @NotNull(message = "airline cannot be null")
@@ -38,10 +38,10 @@ public class Flight {
     private Airport arrivalAirport;
 
     @NotNull(message = "departureTime cannot be null")
-    @Future
+//    @Future
     private LocalTime departureTime;
 
     @NotNull(message = "arrivalTime cannot be null")
-    @Future
+//    @Future
     private LocalTime arrivalTime;
 }
