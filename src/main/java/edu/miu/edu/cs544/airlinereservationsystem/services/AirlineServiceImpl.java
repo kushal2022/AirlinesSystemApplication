@@ -2,6 +2,7 @@ package edu.miu.edu.cs544.airlinereservationsystem.services;
 
 import edu.miu.edu.cs544.airlinereservationsystem.database.dao.AirlineRepository;
 import edu.miu.edu.cs544.airlinereservationsystem.database.dto.Airline;
+import edu.miu.edu.cs544.airlinereservationsystem.model.AirlineRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +16,12 @@ public class AirlineServiceImpl implements AirlineService {
     AirlineRepository repository;
 
     @Override
-    public Airline addAirline(Airline airline) {
+    public Airline addAirline(AirlineRequest airlineRequest) {
+
+        Airline airline = new Airline();
+        airline.setCode(airlineRequest.getCode());
+        airline.setName(airlineRequest.getName());
+        airline.setHistory(airlineRequest.getHistory());
         return repository.save(airline);
     }
 
@@ -30,13 +36,16 @@ public class AirlineServiceImpl implements AirlineService {
     }
 
     @Override
-    public Airline updateAirline(Long id, Airline airline) {
+    public Airline updateAirline(Long id, AirlineRequest airlineRequest) {
         Optional<Airline> entity = repository.findById(id);
-//        entity.get().setId(airline.getId());
-        entity.get().setName(airline.getName());
-        entity.get().setCode(airline.getCode());
-        entity.get().setHistory(airline.getHistory());
-        return repository.save(entity.get());
+        if(entity.isPresent()){
+            Airline airline = entity.get();
+            airline.setName(airlineRequest.getName());
+            airline.setCode(airlineRequest.getCode());
+            airline.setHistory(airlineRequest.getHistory());
+            return repository.save(airline);
+        }
+        return null;
     }
 
     @Override

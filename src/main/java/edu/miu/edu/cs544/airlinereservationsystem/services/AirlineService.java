@@ -1,14 +1,15 @@
 package edu.miu.edu.cs544.airlinereservationsystem.services;
 
 import edu.miu.edu.cs544.airlinereservationsystem.database.dto.Airline;
+import edu.miu.edu.cs544.airlinereservationsystem.model.AirlineRequest;
 
 import java.util.List;
 import java.util.Optional;
 
 public interface AirlineService {
-    Airline addAirline(Airline airline);
+    Airline addAirline(AirlineRequest airlineRequest);
     List<Airline> findAll();
     Optional<Airline> findById(Long id);
-    Airline updateAirline(Long id, Airline airline);
+    Airline updateAirline(Long id, AirlineRequest airlineRequest);
     void deleteAirline(Long id);
 }
