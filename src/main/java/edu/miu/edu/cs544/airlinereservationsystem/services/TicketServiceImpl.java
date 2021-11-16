@@ -29,6 +29,7 @@ public class TicketServiceImpl implements TicketService {
         ticket.setNumber(ticketRequest.getNumber());
         ticket.setFlightDate(ticketRequest.getFlightDate());
         ticket.setReservation(reservation);
+        ticket.setFlight(ticket.getFlight());
         ticketsRepository.save(ticket);
     }
 

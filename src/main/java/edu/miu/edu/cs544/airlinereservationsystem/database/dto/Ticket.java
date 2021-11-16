@@ -29,7 +29,12 @@ public class Ticket {
     private LocalDate flightDate;
 
     @NonNull
-    @OneToOne
-    @JoinColumn(name = "reservation_id")
+    @ManyToOne
+    @JoinTable(name = "Ticker_Reservation")
     private Reservation reservation;
+
+    @NonNull
+    @OneToOne
+    @JoinColumn(name = "flight_id")
+    private Flight flight;
 }
