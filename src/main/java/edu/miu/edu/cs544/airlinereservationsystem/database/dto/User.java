@@ -28,7 +28,6 @@ public abstract class User {
     private String lastName;
 
     @NotNull(message = "date of birth cannot be null")
-    @NotBlank(message = "date of birth cannot be empty")
     @Past
     private LocalDate dob;
 

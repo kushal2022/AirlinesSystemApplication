@@ -7,8 +7,8 @@ import java.util.List;
 public interface AgentService {
 
     Agent addAgent(Agent passenger);
-    List<Agent> getPassengers();
+    List<Agent> getAgents();
     Agent getAgent(Long id);
-    void updatePassenger(Long id, Agent passenger);
-    void deletePassenger(Long id);
+    void updateAgent(Long id, Agent passenger);
+    void deleteAgent(Long id);
 }

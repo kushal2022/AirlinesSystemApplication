@@ -25,7 +25,7 @@ public class AgentServiceImpl implements AgentService {
     AgentRepository agentRepository;
 
     @Override
-    public List<Agent> getPassengers() {
+    public List<Agent> getAgents() {
         return agentRepository.findAll();
     }
 
@@ -41,7 +41,7 @@ public class AgentServiceImpl implements AgentService {
     }
 
     @Override
-    public void updatePassenger(Long id, Agent passenger) {
+    public void updateAgent(Long id, Agent passenger) {
         Optional<Agent> optionalPassenger = agentRepository.findById(id);
         if (optionalPassenger.isPresent()) {
             Agent oldPassenger = optionalPassenger.get();
@@ -56,7 +56,7 @@ public class AgentServiceImpl implements AgentService {
     }
 
     @Override
-    public void deletePassenger(Long id) {
+    public void deleteAgent(Long id) {
         agentRepository.deleteById(id);
     }
 }

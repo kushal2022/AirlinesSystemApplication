@@ -2,7 +2,7 @@ package edu.miu.edu.cs544.airlinereservationsystem.controller;
 
 import edu.miu.edu.cs544.airlinereservationsystem.database.dto.Passenger;
 import edu.miu.edu.cs544.airlinereservationsystem.database.dto.Reservation;
-import edu.miu.edu.cs544.airlinereservationsystem.services.PassengerServiceImpl;
+import edu.miu.edu.cs544.airlinereservationsystem.services.PassengerService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +15,7 @@ import java.util.List;
 public class PassengerController {
 
     @Autowired
-    PassengerServiceImpl passengerService;
+    PassengerService passengerService;
 
     @RequestMapping(value = "/{id}/reservations", method = RequestMethod.GET)
     public ResponseEntity<List<Reservation>> getMyReservation(@PathVariable Long id) {

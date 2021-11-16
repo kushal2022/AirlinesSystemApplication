@@ -16,10 +16,9 @@ public class AgentController {
     @Autowired
     AgentService agentService;
 
-
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<List<Agent>> getAgents() {
-        List<Agent> passengers = agentService.getPassengers();
+        List<Agent> passengers = agentService.getAgents();
         return new ResponseEntity<>(passengers, HttpStatus.OK);
     }
 
@@ -36,13 +35,13 @@ public class AgentController {
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
     public ResponseEntity<Void> updateAgent(@PathVariable Long id, @RequestBody Agent agent) {
-        agentService.updatePassenger(id, agent);
+        agentService.updateAgent(id, agent);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
     public ResponseEntity<Void> deletePassenger(@PathVariable Long id) {
-        agentService.deletePassenger(id);
+        agentService.deleteAgent(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

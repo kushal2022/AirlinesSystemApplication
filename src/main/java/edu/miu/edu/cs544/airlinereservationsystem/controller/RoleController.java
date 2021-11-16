@@ -1,7 +1,7 @@
 package edu.miu.edu.cs544.airlinereservationsystem.controller;
 
 import edu.miu.edu.cs544.airlinereservationsystem.database.dto.Role;
-import edu.miu.edu.cs544.airlinereservationsystem.services.RoleServiceImpl;
+import edu.miu.edu.cs544.airlinereservationsystem.services.RoleService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +15,7 @@ import java.util.List;
 public class RoleController {
 
     @Autowired
-    RoleServiceImpl service;
+    RoleService service;
 
     @RequestMapping(method = RequestMethod.POST, consumes = "application/json")
     public ResponseEntity<Long> createRole(@Validated @RequestBody Role role) {
