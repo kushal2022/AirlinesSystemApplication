@@ -1,9 +1,11 @@
 package edu.miu.edu.cs544.airlinereservationsystem.controller;
 
 import edu.miu.edu.cs544.airlinereservationsystem.database.dto.Airport;
+import edu.miu.edu.cs544.airlinereservationsystem.model.AirportRequest;
 import edu.miu.edu.cs544.airlinereservationsystem.services.AirportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,8 +20,8 @@ public class AirportController {
 
     @PostMapping
     @ResponseStatus(value = HttpStatus.CREATED)
-    public Airport AddAirport(@RequestBody Airport airport){
-        return airportService.addAirport(airport);
+    public Airport AddAirport(@Validated @RequestBody AirportRequest airportRequest){
+        return airportService.addAirport(airportRequest);
     }
 
     @GetMapping
@@ -36,8 +38,8 @@ public class AirportController {
 
     @PutMapping("/{id}")
     @ResponseStatus(value = HttpStatus.OK)
-    public Airport updateAirline(@PathVariable("id") Long id, @RequestBody Airport airport){
-        return airportService.updateAirport(id, airport);
+    public Airport updateAirline(@PathVariable("id") Long id, @Validated @RequestBody AirportRequest airportRequest){
+        return airportService.updateAirport(id, airportRequest);
     }
 
     @DeleteMapping("/{id}")

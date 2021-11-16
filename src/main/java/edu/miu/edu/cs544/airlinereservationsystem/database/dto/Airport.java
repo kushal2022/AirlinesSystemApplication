@@ -26,6 +26,6 @@ public class Airport {
     private String name;
 
     @NotNull(message = "address cannot be null")
-    @OneToOne(cascade = {CascadeType.PERSIST})
+    @OneToOne(cascade = {CascadeType.ALL})
     private Address address;
 }

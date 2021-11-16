@@ -1,7 +1,9 @@
 package edu.miu.edu.cs544.airlinereservationsystem.services;
 
 import edu.miu.edu.cs544.airlinereservationsystem.database.dao.AirportRepository;
+import edu.miu.edu.cs544.airlinereservationsystem.database.dto.Airline;
 import edu.miu.edu.cs544.airlinereservationsystem.database.dto.Airport;
+import edu.miu.edu.cs544.airlinereservationsystem.model.AirportRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,7 +17,11 @@ public class AirportServiceImpl implements AirportService {
     AirportRepository repository;
 
     @Override
-    public Airport addAirport(Airport airport) {
+    public Airport addAirport(AirportRequest airportRequest) {
+        Airport airport = new Airport();
+        airport.setName(airportRequest.getName());
+        airport.setCode(airportRequest.getCode());
+        airport.setAddress(airportRequest.getAddress());
         return repository.save(airport);
     }
 
@@ -30,15 +36,18 @@ public class AirportServiceImpl implements AirportService {
     }
 
     @Override
-    public Airport updateAirport(Long id, Airport airport) {
+    public Airport updateAirport(Long id, AirportRequest airportRequest) {
         Optional<Airport> entity = repository.findById(id);
-//        entity.get().setId(airport.getId());
-        entity.get().setName(airport.getName());
-        entity.get().setCode(airport.getCode());
-        entity.get().setAddress(airport.getAddress());
-        return repository.save(entity.get());
-    }
+        if(entity.isPresent()){
+            Airport airport = entity.get();
+            airport.setName(airportRequest.getName());
+            airport.setCode(airportRequest.getCode());
+            airport.setAddress(airportRequest.getAddress());
+            return repository.save(airport);
+        }
+        return null;
 
+    }
     @Override
     public void deleteAirPort(Long id) {
         repository.deleteById(id);
