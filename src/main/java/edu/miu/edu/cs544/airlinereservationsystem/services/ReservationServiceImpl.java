@@ -1,11 +1,9 @@
 package edu.miu.edu.cs544.airlinereservationsystem.services;
 
-import edu.miu.edu.cs544.airlinereservationsystem.database.dao.AgentRepository;
-import edu.miu.edu.cs544.airlinereservationsystem.database.dao.FlightRepository;
-import edu.miu.edu.cs544.airlinereservationsystem.database.dao.PassengerRepository;
-import edu.miu.edu.cs544.airlinereservationsystem.database.dao.ReservationRepository;
+import edu.miu.edu.cs544.airlinereservationsystem.database.dao.*;
 import edu.miu.edu.cs544.airlinereservationsystem.database.dto.*;
 import edu.miu.edu.cs544.airlinereservationsystem.model.ReservationRequest;
+import edu.miu.edu.cs544.airlinereservationsystem.utils.Utils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,6 +29,12 @@ public class ReservationServiceImpl implements ReservationService {
 
     @Autowired
     FlightRepository flightRepository;
+
+    @Autowired
+    TicketRepository ticketRepository;
+
+    @Autowired
+    Utils utils;
 
 
     @Override
@@ -97,14 +101,32 @@ public class ReservationServiceImpl implements ReservationService {
     }
 
     @Override
-    public boolean confirmReservation(Long id) {
+    public void confirmReservation(Long id) {
         reservationRepository.confirmReservation(id);
-        return true;
+
+        //once optionalReservation confirmed create ticket for each flight
+        Optional<Reservation> optionalReservation = reservationRepository.findById(id);
+
+        if (optionalReservation.isPresent()) {
+            log.info("Generate ticket foreach flight");
+            Reservation reservation = optionalReservation.get();
+            List<Flight> flights = reservation.getFlight();
+            for (Flight flight : flights) {
+                Ticket ticket = new Ticket();
+                String number = utils.generateTicketNumber();
+                System.out.println(number);
+                ticket.setNumber(number);
+                ticket.setFlightDate(reservation.getFlightDate());
+                ticket.setReservation(reservation);
+                ticket.setFlight(flight);
+
+                ticketRepository.save(ticket);
+            }
+        }
     }
 
     @Override
-    public boolean cancelReservation(Long id) {
+    public void cancelReservation(Long id) {
         reservationRepository.cancelReservation(id);
-        return true;
     }
 }
