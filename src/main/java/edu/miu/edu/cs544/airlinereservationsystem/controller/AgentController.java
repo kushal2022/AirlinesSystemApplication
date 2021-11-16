@@ -28,7 +28,7 @@ public class AgentController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.GET)
-    public ResponseEntity<Agent> getPassenger(@PathVariable Long id) {
+    public ResponseEntity<Agent> getAgent(@PathVariable Long id) {
         Agent agent = agentService.getAgent(id);
         return new ResponseEntity<>(agent, HttpStatus.OK);
     }
@@ -40,7 +40,7 @@ public class AgentController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public ResponseEntity<Void> deletePassenger(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteAgent(@PathVariable Long id) {
         agentService.deleteAgent(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
