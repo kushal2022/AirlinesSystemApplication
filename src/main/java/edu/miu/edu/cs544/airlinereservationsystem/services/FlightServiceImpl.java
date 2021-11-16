@@ -1,16 +1,13 @@
 package edu.miu.edu.cs544.airlinereservationsystem.services;
 
 import edu.miu.edu.cs544.airlinereservationsystem.database.dao.FlightRepository;
-import edu.miu.edu.cs544.airlinereservationsystem.database.dto.Airport;
 import edu.miu.edu.cs544.airlinereservationsystem.database.dto.Flight;
-import lombok.Data;
+import edu.miu.edu.cs544.airlinereservationsystem.model.FlightTripRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 @Service
 public class FlightServiceImpl implements FlightService {
@@ -54,10 +51,8 @@ public class FlightServiceImpl implements FlightService {
     }
 
     @Override
-    public List<Flight> flightTrips(Airport arrivalAirport, Airport departureAirport) {
-        return repository.findAll().stream()
-                 .filter(f->(f.getArrivalAirport().equals(arrivalAirport)))
-                 .filter(f->f.getDepartureAirport().equals(departureAirport))
-                .collect(Collectors.toList());
+    public List<Flight> flightTrips(FlightTripRequest flightTripRequest) {
+        return repository.getFlightByDateAndAirport(flightTripRequest.getDepartureAirport().getId(),
+                flightTripRequest.getArrivalAirport().getId(), flightTripRequest.getFlightDate());
     }
 }

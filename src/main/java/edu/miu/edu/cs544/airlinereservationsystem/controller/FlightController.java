@@ -2,6 +2,7 @@ package edu.miu.edu.cs544.airlinereservationsystem.controller;
 
 import edu.miu.edu.cs544.airlinereservationsystem.database.dto.Airport;
 import edu.miu.edu.cs544.airlinereservationsystem.database.dto.Flight;
+import edu.miu.edu.cs544.airlinereservationsystem.model.FlightTripRequest;
 import edu.miu.edu.cs544.airlinereservationsystem.services.FlightService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -50,8 +51,8 @@ public class FlightController {
 
     @GetMapping("/flightTrips")
     @ResponseStatus(value = HttpStatus.OK)
-    public List<Flight> flightTrips(@RequestBody Airport arrivalAirport, @RequestBody Airport departureAirport){
-        return flightService.flightTrips(arrivalAirport, departureAirport);
+    public List<Flight> flightTrips(@RequestBody FlightTripRequest flightTripRequest){
+        return flightService.flightTrips(flightTripRequest);
     }
 
 }
