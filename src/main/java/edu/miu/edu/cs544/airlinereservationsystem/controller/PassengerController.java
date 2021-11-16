@@ -41,13 +41,13 @@ public class PassengerController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<Passenger> updatePassenger(@PathVariable Long id, @RequestBody Passenger passenger) {
+    public ResponseEntity<Void> updatePassenger(@PathVariable Long id, @RequestBody Passenger passenger) {
         passengerService.updatePassenger(id, passenger);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
-    public ResponseEntity<Passenger> deletePassenger(@PathVariable Long id) {
+    public ResponseEntity<Void> deletePassenger(@PathVariable Long id) {
         passengerService.deletePassenger(id);
         return new ResponseEntity<>(HttpStatus.OK);
     }
