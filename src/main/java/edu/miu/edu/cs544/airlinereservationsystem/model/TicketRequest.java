@@ -23,4 +23,7 @@ public class TicketRequest {
     @NotNull
     private Reservation reservation;
 
+    @NotNull
+    private Flight flight;
+
 }
