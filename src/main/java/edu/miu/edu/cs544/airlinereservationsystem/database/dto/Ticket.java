@@ -25,15 +25,11 @@ public class Ticket {
     private String number;
 
     @NonNull
-    @Future
+    @Future(message = "Flight date must be to the future")
     private LocalDate flightDate;
 
     @NonNull
-    @ManyToOne()
-    @JoinColumn(name="reservationCode",referencedColumnName = "code")
+    @OneToOne
+    @JoinColumn(name = "reservation_id")
     private Reservation reservation;
-
-    @NonNull
-    @ManyToOne()
-    private Flight flight;
 }
