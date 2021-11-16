@@ -8,7 +8,7 @@ spring:
   datasource:
     url: jdbc:mysql://localhost/airlinesdb?createDatabaseIfNotExist=true&autoReconnect=true&useSSL=false
     username: root
-    password: root@123
+    password: P@ssw0rd
     driverClassName: com.mysql.cj.jdbc.Driver
     hikari:
       maximumPoolSize: 10
