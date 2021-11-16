@@ -1,6 +1,8 @@
 package edu.miu.edu.cs544.airlinereservationsystem.database.dto;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -9,6 +11,8 @@ import javax.validation.constraints.Size;
 @Entity
 @SecondaryTable(name = "History")
 @Data
+@AllArgsConstructor
+@NoArgsConstructor
 public class Airline {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
