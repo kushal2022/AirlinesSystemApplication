@@ -1,6 +1,7 @@
 package edu.miu.edu.cs544.airlinereservationsystem.controller;
 
 import edu.miu.edu.cs544.airlinereservationsystem.database.dto.Reservation;
+import edu.miu.edu.cs544.airlinereservationsystem.model.ReservationRequest;
 import edu.miu.edu.cs544.airlinereservationsystem.services.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,8 +17,8 @@ public class ReservationController {
     private ReservationService service;
 
     @RequestMapping(method = RequestMethod.POST, consumes = "application/json")
-    public ResponseEntity<Long> createReservation(@Validated @RequestBody Reservation reservation) {
-        Reservation savedReservation = service.saveReservation(reservation);
+    public ResponseEntity<Long> createReservation(@Validated @RequestBody ReservationRequest reservationRequest) {
+        Reservation savedReservation = service.saveReservation(reservationRequest);
         return new ResponseEntity<>(savedReservation.getId(), HttpStatus.CREATED);
     }
 
@@ -28,8 +29,8 @@ public class ReservationController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT, consumes = "application/json")
-    public ResponseEntity<Void> updateRole(@PathVariable Long id, @Validated @RequestBody Reservation reservation) {
-        service.updateReservation(id, reservation);
+    public ResponseEntity<Void> updateRole(@PathVariable Long id, @Validated @RequestBody ReservationRequest reservationRequest) {
+        service.updateReservation(id, reservationRequest);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

@@ -5,6 +5,7 @@ import edu.miu.edu.cs544.airlinereservationsystem.database.dao.FlightRepository;
 import edu.miu.edu.cs544.airlinereservationsystem.database.dao.PassengerRepository;
 import edu.miu.edu.cs544.airlinereservationsystem.database.dao.ReservationRepository;
 import edu.miu.edu.cs544.airlinereservationsystem.database.dto.*;
+import edu.miu.edu.cs544.airlinereservationsystem.model.ReservationRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,14 +34,14 @@ public class ReservationServiceImpl implements ReservationService {
 
 
     @Override
-    public Reservation saveReservation(Reservation reservation) {
-        log.info("saveReservation - creating new reservation . . .");
+    public Reservation saveReservation(ReservationRequest reservationRequest) {
+        log.info("saveReservation - creating new reservationRequest . . .");
 
-        Passenger passenger = passengerRepository.getById(reservation.getPassenger().getId());
-        Agent agent = agentRepository.getById(reservation.getAgent().getId());
+        Passenger passenger = passengerRepository.getById(reservationRequest.getPassenger().getId());
+        Agent agent = agentRepository.getById(reservationRequest.getAgent().getId());
 
         List<Flight> flights = new ArrayList<>();
-        List<Flight> flightList = reservation.getFlight();
+        List<Flight> flightList = reservationRequest.getFlight();
         if (!flightList.isEmpty()) {
             for (Flight f : flightList) {
                 Optional<Flight> optionalFlight = flightRepository.findById(f.getId());
@@ -55,26 +56,27 @@ public class ReservationServiceImpl implements ReservationService {
         myReservation.setPassenger(passenger);
         myReservation.setFlight(flights);
         myReservation.setAgent(agent);
-        myReservation.setConfirmed(reservation.isConfirmed());
-        myReservation.setStatus(reservation.getStatus());
-        myReservation.setPurchased(reservation.isPurchased());
-        myReservation.setFlightDate(reservation.getFlightDate());
+        myReservation.setConfirmed(reservationRequest.isConfirmed());
+        myReservation.setStatus(reservationRequest.getStatus());
+        myReservation.setPurchased(reservationRequest.isPurchased());
+        myReservation.setFlightDate(reservationRequest.getFlightDate());
 
-        log.info("saveReservation - reservation: {}", myReservation);
+        log.info("saveReservation - reservationRequest: {}", myReservation);
         return reservationRepository.save(myReservation);
     }
 
     @Override
     public Reservation getReservation(Long id) {
         log.info("getReservation - getting reservation by id: {}", id);
-        Optional<Reservation> reservation = reservationRepository.findById(id);
+        Optional<Reservation> optionalReservation = reservationRepository.findById(id);
+        Reservation reservation = optionalReservation.isPresent() ? optionalReservation.get() : null;
         log.info("getReservation - Reservation. reservation: {}", reservation);
-        return reservation.get();
+        return reservation;
     }
 
     @Override
-    public Reservation updateReservation(Long id, Reservation reservation) {
-        log.info("updateReservation - updating reservation id: {}", id);
+    public Reservation updateReservation(Long id, ReservationRequest reservationRequest) {
+        log.info("updateReservation - updating reservationRequest id: {}", id);
 
         Optional<Reservation> findReservationById = reservationRepository.findById(id);
         if (findReservationById.isPresent()) {
@@ -82,13 +84,13 @@ public class ReservationServiceImpl implements ReservationService {
             Reservation newReservation = new Reservation();
             newReservation.setId(oldReservation.getId());
             newReservation.setPassenger(oldReservation.getPassenger());
-            newReservation.setFlight(reservation.getFlight());
-            newReservation.setAgent(reservation.getAgent());
-            newReservation.setConfirmed(reservation.isConfirmed());
-            newReservation.setStatus(reservation.getStatus());
-            newReservation.setPurchased(reservation.isPurchased());
-            newReservation.setFlightDate(reservation.getFlightDate());
-            log.info("updateReservation - Saving reservation: {}", newReservation);
+            newReservation.setFlight(reservationRequest.getFlight());
+            newReservation.setAgent(reservationRequest.getAgent());
+            newReservation.setConfirmed(reservationRequest.isConfirmed());
+            newReservation.setStatus(reservationRequest.getStatus());
+            newReservation.setPurchased(reservationRequest.isPurchased());
+            newReservation.setFlightDate(reservationRequest.getFlightDate());
+            log.info("updateReservation - Saving reservationRequest: {}", newReservation);
             return reservationRepository.save(newReservation);
         }
 
