@@ -93,7 +93,6 @@ public class ReservationServiceImpl implements ReservationService {
             log.info("updateReservation - Saving reservationRequest: {}", newReservation);
             return reservationRepository.save(newReservation);
         }
-
         return null;
     }
 
