@@ -1,14 +1,15 @@
 package edu.miu.edu.cs544.airlinereservationsystem.controller;
 
-import edu.miu.edu.cs544.airlinereservationsystem.database.dto.Airport;
 import edu.miu.edu.cs544.airlinereservationsystem.database.dto.Flight;
+import edu.miu.edu.cs544.airlinereservationsystem.model.FlightRequest;
 import edu.miu.edu.cs544.airlinereservationsystem.model.FlightTripRequest;
 import edu.miu.edu.cs544.airlinereservationsystem.services.FlightService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -21,8 +22,8 @@ public class FlightController {
 
     @PostMapping
     @ResponseStatus(value = HttpStatus.CREATED)
-    public Flight AddFlight(@RequestBody Flight flight){
-        return flightService.addFlight(flight);
+    public Flight addFlight(@RequestBody FlightRequest flightRequest){
+        return flightService.addFlight(flightRequest);
     }
 
     @GetMapping
@@ -39,8 +40,8 @@ public class FlightController {
 
     @PutMapping("/{id}")
     @ResponseStatus(value = HttpStatus.OK)
-    public Flight updateAirline(@PathVariable("id") Long id, @RequestBody Flight flight){
-        return flightService.updateFlight(id, flight);
+    public Flight updateAirline(@PathVariable("id") Long id, @RequestBody FlightRequest flightRequest){
+        return flightService.updateFlight(id, flightRequest);
     }
 
     @DeleteMapping("/{id}")
