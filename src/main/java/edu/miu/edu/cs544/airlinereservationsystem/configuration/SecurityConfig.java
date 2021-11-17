@@ -24,6 +24,7 @@ public class SecurityConfig extends ResourceServerConfigurerAdapter {
 				.and()
 				.csrf().disable()
 				.authorizeRequests()
+				.antMatchers("/users").permitAll()
 				.anyRequest().authenticated()
 				.and()
 				.httpBasic()

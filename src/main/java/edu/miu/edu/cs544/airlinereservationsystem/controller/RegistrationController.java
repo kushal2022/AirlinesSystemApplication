@@ -1,9 +1,8 @@
 package edu.miu.edu.cs544.airlinereservationsystem.controller;
 
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
-import edu.miu.edu.cs544.airlinereservationsystem.database.dto.User;
 import edu.miu.edu.cs544.airlinereservationsystem.model.RegisterRequest;
-import edu.miu.edu.cs544.airlinereservationsystem.services.UserService;
+import edu.miu.edu.cs544.airlinereservationsystem.services.UserRegistrationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,9 +15,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(value = "/users")
 public class RegistrationController {
-
+    
     @Autowired
-    UserService userService;
+    UserRegistrationService userService;
 
 
     @RequestMapping(method = RequestMethod.POST)

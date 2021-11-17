@@ -24,9 +24,9 @@ import org.springframework.web.client.RestTemplate;
 import java.util.*;
 
 @Service
-public class UserServiceImpl implements UserService {
+public class UserRegistrationImpl implements UserRegistrationService {
 
-    private static final Logger log = LoggerFactory.getLogger(UserServiceImpl.class);
+    private static final Logger log = LoggerFactory.getLogger(UserRegistrationImpl.class);
 
     @Autowired
     private DiscoveryClient discoveryClient;
@@ -131,18 +131,10 @@ public class UserServiceImpl implements UserService {
         log.info(response);
         return response;
     }
-
-
+    
     private String getBaseServiceUrl() {
         List<ServiceInstance> serviceInstances = discoveryClient.getInstances(serverName);
         serviceInstances.forEach(System.out::println);
         return serviceInstances.get(0).getUri().toString();
-    }
-
-    private HttpEntity<Object> createHttpEntity(){
-        HttpHeaders headers = new HttpHeaders();
-        headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
-        headers.setBasicAuth(clientId, clientSecret);
-        return new HttpEntity<>(headers);
     }
 }
