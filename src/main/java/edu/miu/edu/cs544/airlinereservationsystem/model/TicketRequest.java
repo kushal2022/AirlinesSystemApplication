@@ -7,7 +7,7 @@ import lombok.Data;
 import javax.validation.constraints.Digits;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.NotNull;
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Data
 public class TicketRequest {
@@ -18,7 +18,7 @@ public class TicketRequest {
 
     @NotNull
     @Future
-    private LocalDate flightDate;
+    private LocalDateTime flightDate;
 
     @NotNull
     private Reservation reservation;

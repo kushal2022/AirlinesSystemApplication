@@ -9,6 +9,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -116,7 +119,10 @@ public class ReservationServiceImpl implements ReservationService {
                 String number = utils.generateTicketNumber();
                 System.out.println(number);
                 ticket.setNumber(number);
-                ticket.setFlightDate(reservation.getFlightDate());
+                LocalDate flightDate = reservation.getFlightDate();
+                LocalTime departureTime = flight.getDepartureTime();
+                LocalDateTime localDateTime = LocalDateTime.of(flightDate, departureTime);
+                ticket.setFlightDate(localDateTime);
                 ticket.setReservation(reservation);
                 ticket.setFlight(flight);
 

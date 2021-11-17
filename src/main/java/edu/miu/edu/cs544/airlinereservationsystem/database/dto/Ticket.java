@@ -10,6 +10,7 @@ import javax.validation.constraints.Digits;
 import javax.validation.constraints.Future;
 import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @NoArgsConstructor
 @Data
@@ -26,7 +27,7 @@ public class Ticket {
 
     @NonNull
     @Future(message = "Flight date must be to the future")
-    private LocalDate flightDate;
+    private LocalDateTime flightDate;
 
     @NonNull
     @ManyToOne
