@@ -31,8 +31,8 @@ public class AirportServiceImpl implements AirportService {
     }
 
     @Override
-    public Optional<Airport> findById(Long id) {
-        return repository.findById(id);
+    public Airport findById(Long id) {
+        return repository.findById(id).orElse(null);
     }
 
     @Override
