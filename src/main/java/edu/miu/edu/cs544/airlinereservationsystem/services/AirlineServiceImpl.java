@@ -31,8 +31,13 @@ public class AirlineServiceImpl implements AirlineService {
     }
 
     @Override
-    public Optional<Airline> findById(Long id) {
-        return repository.findById(id);
+    public List<Airline> getAirlinesFlyingFromAirportX(Long airportId) {
+        return repository.getAirlinesFlyingFromAirportX(airportId);
+    }
+
+    @Override
+    public Airline findById(Long id) {
+        return repository.findById(id).orElse(null);
     }
 
     @Override

@@ -5,11 +5,11 @@ import edu.miu.edu.cs544.airlinereservationsystem.model.AirlineRequest;
 import edu.miu.edu.cs544.airlinereservationsystem.services.AirlineService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/airlines")
@@ -19,32 +19,38 @@ public class AirlineController {
     AirlineService airlineService;
 
     @PostMapping
-    @ResponseStatus(value = HttpStatus.CREATED)
-    public Airline AddAirline(@Validated @RequestBody AirlineRequest airlineRequest){
-        return airlineService.addAirline(airlineRequest);
+    public ResponseEntity<Airline> AddAirline(@Validated @RequestBody AirlineRequest airlineRequest){
+        Airline airline = airlineService.addAirline(airlineRequest);
+        return new ResponseEntity<>(airline, HttpStatus.CREATED);
     }
 
     @GetMapping
-    @ResponseStatus(value = HttpStatus.OK)
-    public List<Airline> getAllAirlines(){
-        return airlineService.findAll();
+    public ResponseEntity<List<Airline>>  getAllAirlines(){
+        List<Airline> airlines = airlineService.findAll();
+        return new ResponseEntity<>(airlines, HttpStatus.OK);
     }
 
-    @GetMapping("/{id}")
-    @ResponseStatus(value = HttpStatus.OK)
-    public Optional<Airline> getById(@PathVariable("id") Long id){
-        return airlineService.findById(id);
+    @RequestMapping(value = "/airport/{id}", method = RequestMethod.GET)
+    public ResponseEntity<List<Airline>> getAirlinesFlyingFromAirportX(@PathVariable Long id) {
+        List<Airline> airlines = airlineService.getAirlinesFlyingFromAirportX(id);
+        return new ResponseEntity<>(airlines, HttpStatus.OK);
     }
 
-    @PutMapping("/{id}")
-    @ResponseStatus(value = HttpStatus.OK)
-    public Airline updateAirline(@PathVariable("id") Long id, @Validated @RequestBody AirlineRequest airlineRequest){
-        return airlineService.updateAirline(id, airlineRequest);
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public ResponseEntity<Airline> getById(@PathVariable("id") Long id){
+        Airline airline = airlineService.findById(id);
+        return new ResponseEntity<>(airline, HttpStatus.OK);
     }
 
-    @DeleteMapping("/{id}")
-    @ResponseStatus(value = HttpStatus.OK)
-    public void deleteAirline(@PathVariable("id") Long id){
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    public ResponseEntity<Airline> updateAirline(@PathVariable("id") Long id, @Validated @RequestBody AirlineRequest airlineRequest){
+        Airline airline = airlineService.updateAirline(id, airlineRequest);
+        return new ResponseEntity<>(airline, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<Void> deleteAirline(@PathVariable("id") Long id){
         airlineService.deleteAirline(id);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

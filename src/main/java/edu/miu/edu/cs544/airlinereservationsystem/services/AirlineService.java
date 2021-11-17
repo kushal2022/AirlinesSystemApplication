@@ -9,7 +9,8 @@ import java.util.Optional;
 public interface AirlineService {
     Airline addAirline(AirlineRequest airlineRequest);
     List<Airline> findAll();
-    Optional<Airline> findById(Long id);
+    List<Airline> getAirlinesFlyingFromAirportX(Long airportId);
+    Airline findById(Long id);
     Airline updateAirline(Long id, AirlineRequest airlineRequest);
     void deleteAirline(Long id);
 }
