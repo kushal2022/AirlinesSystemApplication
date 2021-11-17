@@ -1,6 +1,7 @@
 package edu.miu.edu.cs544.airlinereservationsystem.services;
 
 import edu.miu.edu.cs544.airlinereservationsystem.database.dao.AgentRepository;
+import edu.miu.edu.cs544.airlinereservationsystem.database.dao.PassengerRepository;
 import edu.miu.edu.cs544.airlinereservationsystem.database.dao.ReservationRepository;
 import edu.miu.edu.cs544.airlinereservationsystem.database.dto.Agent;
 import edu.miu.edu.cs544.airlinereservationsystem.database.dto.Passenger;
@@ -23,6 +24,9 @@ public class AgentServiceImpl implements AgentService {
 
     @Autowired
     AgentRepository agentRepository;
+
+    @Autowired
+    PassengerRepository passengerRepository;
 
     @Override
     public List<Agent> getAgents() {
@@ -58,5 +62,15 @@ public class AgentServiceImpl implements AgentService {
     @Override
     public void deleteAgent(Long id) {
         agentRepository.deleteById(id);
+    }
+
+    @Override
+    public List<Passenger> getPassengersByAgent(Long id) {
+        return passengerRepository.getPassengersByAgent(id);
+    }
+
+    @Override
+    public List<Reservation> getReservationsByAgent(Long id) {
+        return reservationRepository.getReservationByAgentId(id);
     }
 }

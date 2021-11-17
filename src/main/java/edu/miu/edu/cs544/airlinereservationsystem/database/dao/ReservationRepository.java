@@ -22,7 +22,13 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long> 
     void cancelReservation(Long id);
 
 
-    @Query(value = "SELECT * FROM Reservation AS r JOIN Reservation_Passenger AS rp ON r.id = rp.reservation_id WHERE rp.passenger_Id = ?1", nativeQuery = true)
+    @Query(value = "SELECT DISTINCT * FROM Reservation AS r JOIN Reservation_Passenger AS rp ON r.id = rp.reservation_id WHERE rp.passenger_Id = ?1", nativeQuery = true)
     List<Reservation> getReservationByPassengerId(Long passenger_Id);
+
+    @Query(value = "SELECT * FROM airlinesdb.Reservation r \n" +
+            "JOIN airlinesdb.Reservation_Passenger rp ON r.id = rp.reservation_id\n" +
+            "JOIN airlinesdb.Passenger p ON rp.passenger_id = p.id\n" +
+            "WHERE r.agent_id = ?1", nativeQuery = true)
+    List<Reservation> getReservationByAgentId(Long agent);
 
 }

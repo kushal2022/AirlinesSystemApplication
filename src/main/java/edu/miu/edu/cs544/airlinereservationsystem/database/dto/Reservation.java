@@ -34,9 +34,6 @@ public class Reservation {
     @Column(nullable = false)
     private Status status = Status.PENDING;
 
-    @Column(nullable = false)
-    private boolean isPurchased = false;
-
     @NotNull(message = "flightDate cannot be null")
     @Column(nullable = false)
     private LocalDate flightDate;

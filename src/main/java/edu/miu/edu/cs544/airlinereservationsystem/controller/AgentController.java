@@ -1,6 +1,8 @@
 package edu.miu.edu.cs544.airlinereservationsystem.controller;
 
 import edu.miu.edu.cs544.airlinereservationsystem.database.dto.Agent;
+import edu.miu.edu.cs544.airlinereservationsystem.database.dto.Passenger;
+import edu.miu.edu.cs544.airlinereservationsystem.database.dto.Reservation;
 import edu.miu.edu.cs544.airlinereservationsystem.services.AgentService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -43,5 +45,17 @@ public class AgentController {
     public ResponseEntity<Void> deleteAgent(@PathVariable Long id) {
         agentService.deleteAgent(id);
         return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/{id}/passengers", method = RequestMethod.GET)
+    public ResponseEntity<List<Passenger>> getPassengersByAgent(@PathVariable Long id) {
+        List<Passenger> passengers = agentService.getPassengersByAgent(id);
+        return new ResponseEntity<>(passengers, HttpStatus.OK);
+    }
+
+    @RequestMapping(value = "/{id}/reservations", method = RequestMethod.GET)
+    public ResponseEntity<List<Reservation>> getReservationsByAgent(@PathVariable Long id) {
+        List<Reservation> reservations = agentService.getReservationsByAgent(id);
+        return new ResponseEntity<>(reservations, HttpStatus.OK);
     }
 }
