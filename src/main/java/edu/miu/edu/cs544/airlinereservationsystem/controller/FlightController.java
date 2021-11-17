@@ -1,7 +1,7 @@
 package edu.miu.edu.cs544.airlinereservationsystem.controller;
 
-import edu.miu.edu.cs544.airlinereservationsystem.database.dto.Airport;
 import edu.miu.edu.cs544.airlinereservationsystem.database.dto.Flight;
+import edu.miu.edu.cs544.airlinereservationsystem.model.FlightRequest;
 import edu.miu.edu.cs544.airlinereservationsystem.model.FlightTripRequest;
 import edu.miu.edu.cs544.airlinereservationsystem.services.FlightService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,9 +9,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.Date;
+
 import java.util.List;
-import java.util.Optional;
 
 @RestController
 @RequestMapping("/flights")
@@ -21,7 +20,7 @@ public class FlightController {
     FlightService flightService;
 
     @RequestMapping(method = RequestMethod.POST, consumes = "application/json")
-    public ResponseEntity<Flight> AddFlight(@RequestBody Flight flight) {
+    public ResponseEntity<Flight> AddFlight(@RequestBody FlightRequest flight) {
         return new ResponseEntity<>(flightService.addFlight(flight), HttpStatus.CREATED);
     }
 
@@ -38,7 +37,7 @@ public class FlightController {
     }
 
     @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
-    public ResponseEntity<Flight> updateAirline(@PathVariable("id") Long id, @RequestBody Flight flight){
+    public ResponseEntity<Flight> updateAirline(@PathVariable("id") Long id, @RequestBody FlightRequest flight){
         Flight updatedFlight = flightService.updateFlight(id, flight);
         return new ResponseEntity<>(updatedFlight, HttpStatus.OK);
     }

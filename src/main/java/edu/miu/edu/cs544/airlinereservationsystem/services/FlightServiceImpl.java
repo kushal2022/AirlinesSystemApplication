@@ -2,6 +2,7 @@ package edu.miu.edu.cs544.airlinereservationsystem.services;
 
 import edu.miu.edu.cs544.airlinereservationsystem.database.dao.FlightRepository;
 import edu.miu.edu.cs544.airlinereservationsystem.database.dto.Flight;
+import edu.miu.edu.cs544.airlinereservationsystem.model.FlightRequest;
 import edu.miu.edu.cs544.airlinereservationsystem.model.FlightTripRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,7 +18,16 @@ public class FlightServiceImpl implements FlightService {
     FlightRepository repository;
 
     @Override
-    public Flight addFlight(Flight flight) {
+    public Flight addFlight(FlightRequest flightRequest) {
+
+        Flight flight = new Flight();
+        flight.setDepartureTime(flightRequest.getDepartureTime());
+        flight.setArrivalTime(flightRequest.getArrivalTime());
+        flight.setCapacity(flightRequest.getCapacity());
+        flight.setAirline(flightRequest.getAirline());
+        flight.setArrivalAirport(flightRequest.getArrivalAirport());
+        flight.setDepartureAirport(flightRequest.getDepartureAirport());
+        flight.setNumber(flightRequest.getNumber());
         return repository.save(flight);
     }
 
@@ -32,16 +42,21 @@ public class FlightServiceImpl implements FlightService {
     }
 
     @Override
-    public Flight updateFlight(Long id, Flight flight) {
+    public Flight updateFlight(Long id, FlightRequest flightRequest) {
         Optional<Flight> entity = repository.findById(id);
-        entity.get().setNumber(flight.getNumber());
-        entity.get().setCapacity(flight.getCapacity());
-        entity.get().setAirline(flight.getAirline());
-        entity.get().setDepartureAirport(flight.getDepartureAirport());
-        entity.get().setArrivalAirport(flight.getArrivalAirport());
-        entity.get().setDepartureTime(flight.getDepartureTime());
-        entity.get().setArrivalTime(flight.getArrivalTime());
-        return repository.save(entity.get());
+
+        if(entity.isPresent()){
+            Flight flight1 = entity.get();
+            flight1.setNumber(flightRequest.getNumber());
+            flight1.setCapacity(flightRequest.getCapacity());
+            flight1.setAirline(flightRequest.getAirline());
+            flight1.setDepartureAirport(flightRequest.getDepartureAirport());
+            flight1.setArrivalAirport(flightRequest.getArrivalAirport());
+            flight1.setDepartureTime(flightRequest.getDepartureTime());
+            flight1.setArrivalTime(flightRequest.getArrivalTime());
+            return repository.save(flight1);
+        }
+        return null;
     }
 
     @Override
@@ -50,6 +65,7 @@ public class FlightServiceImpl implements FlightService {
     }
 
     @Override
+
     public List<Flight> flightTrips(FlightTripRequest flightTripRequest) {
         Long departureAirportId = flightTripRequest.getDepartureAirport().getId();
         Long arrivalAirportId = flightTripRequest.getArrivalAirport().getId();
