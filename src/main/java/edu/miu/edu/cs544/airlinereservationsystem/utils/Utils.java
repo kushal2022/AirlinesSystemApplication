@@ -9,7 +9,7 @@ import java.util.Random;
 public class Utils {
 
     public String generateTicketNumber() {
-        long number = 1234567 + new Random().nextInt(8888888 );
+        long number = 1234567 + new Random().nextInt(8888888);
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         return timestamp.getTime() + "" + number;
     }

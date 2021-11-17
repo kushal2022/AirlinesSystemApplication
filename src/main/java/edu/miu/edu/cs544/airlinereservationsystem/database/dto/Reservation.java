@@ -21,7 +21,7 @@ public class Reservation {
             inverseJoinColumns = {@JoinColumn(name = "passenger_Id")})
     private Passenger passenger;
 
-    @OneToMany(cascade = CascadeType.PERSIST)
+    @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(name = "Reservation_Flight")
     private List<Flight> flight;
 

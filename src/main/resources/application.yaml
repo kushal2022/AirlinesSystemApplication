@@ -2,6 +2,8 @@ server:
   port: 8080
   servlet:
     context-path: /airline-reservation-system/v1
+spring-boot-server:
+  name: oauth2-server
 security:
   user:
     name: app-user

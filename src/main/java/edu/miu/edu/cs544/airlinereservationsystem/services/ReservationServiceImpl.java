@@ -44,8 +44,8 @@ public class ReservationServiceImpl implements ReservationService {
     public Reservation saveReservation(ReservationRequest reservationRequest) {
         log.info("saveReservation - creating new reservationRequest . . .");
 
-        Passenger passenger = passengerRepository.getById(reservationRequest.getPassenger().getId());
-        Agent agent = agentRepository.getById(reservationRequest.getAgent().getId());
+        Passenger passenger = passengerRepository.findById(reservationRequest.getPassenger().getId()).orElse(null);
+        Agent agent = agentRepository.findById(reservationRequest.getAgent().getId()).orElse(null);
 
         List<Flight> flights = new ArrayList<>();
         List<Flight> flightList = reservationRequest.getFlight();
@@ -68,7 +68,6 @@ public class ReservationServiceImpl implements ReservationService {
         myReservation.setPurchased(reservationRequest.isPurchased());
         myReservation.setFlightDate(reservationRequest.getFlightDate());
 
-        log.info("saveReservation - reservationRequest: {}", myReservation);
         return reservationRepository.save(myReservation);
     }
 
@@ -117,7 +116,7 @@ public class ReservationServiceImpl implements ReservationService {
             for (Flight flight : flights) {
                 Ticket ticket = new Ticket();
                 String number = utils.generateTicketNumber();
-                System.out.println(number);
+                log.info("Ticket number: " + number);
                 ticket.setNumber(number);
                 LocalDate flightDate = reservation.getFlightDate();
                 LocalTime departureTime = flight.getDepartureTime();
