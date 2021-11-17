@@ -25,7 +25,7 @@ public class Reservation {
     @JoinTable(name = "Reservation_Flight")
     private List<Flight> flight;
 
-    @OneToOne(cascade =CascadeType.PERSIST)
+    @OneToOne(cascade = CascadeType.PERSIST)
     private Agent agent;
 
     @Column(nullable = false)

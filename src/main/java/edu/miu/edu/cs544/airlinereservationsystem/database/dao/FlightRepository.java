@@ -12,12 +12,7 @@ public interface FlightRepository extends JpaRepository<Flight, Long> {
     
     @Query(value = "SELECT DISTINCT * FROM Flight f join Reservation_Flight rf ON f.id = rf.flight_id " +
             "JOIN Reservation r ON r.id = rf.Reservation_id " +
-            "WHERE arrivalAirport_id = ?1 and departureAirport_id = ?2 and r.flightDate = ?3", nativeQuery = true)
+            "WHERE f.arrivalAirport_id = ?1 and f.departureAirport_id = ?2 and r.flightDate = ?3", nativeQuery = true)
     List<Flight> getFlightByDateAndAirport(Long departureAirportId, Long arrivalAirportId, LocalDate date);
-
-
-//    @Modifying
-//    @Query("Inse Reservation SET isConfirmed = 1 WHERE id = ?1")
-//    void confirmReservation(Long id);
     
 }
