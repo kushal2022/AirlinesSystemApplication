@@ -6,6 +6,7 @@ import edu.miu.edu.cs544.airlinereservationsystem.model.FlightTripRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,14 +27,13 @@ public class FlightServiceImpl implements FlightService {
     }
 
     @Override
-    public Optional<Flight> findById(Long id) {
-        return repository.findById(id);
+    public Flight findById(Long id) {
+        return repository.findById(id).orElse(null);
     }
 
     @Override
     public Flight updateFlight(Long id, Flight flight) {
         Optional<Flight> entity = repository.findById(id);
-//        entity.get().setId(flight.getId());
         entity.get().setNumber(flight.getNumber());
         entity.get().setCapacity(flight.getCapacity());
         entity.get().setAirline(flight.getAirline());
@@ -42,7 +42,6 @@ public class FlightServiceImpl implements FlightService {
         entity.get().setDepartureTime(flight.getDepartureTime());
         entity.get().setArrivalTime(flight.getArrivalTime());
         return repository.save(entity.get());
-
     }
 
     @Override
@@ -52,7 +51,9 @@ public class FlightServiceImpl implements FlightService {
 
     @Override
     public List<Flight> flightTrips(FlightTripRequest flightTripRequest) {
-        return repository.getFlightByDateAndAirport(flightTripRequest.getDepartureAirport().getId(),
-                flightTripRequest.getArrivalAirport().getId(), flightTripRequest.getFlightDate());
+        Long departureAirportId = flightTripRequest.getDepartureAirport().getId();
+        Long arrivalAirportId = flightTripRequest.getArrivalAirport().getId();
+        LocalDate flightDate = flightTripRequest.getFlightDate();
+        return repository.getFlightByDateAndAirport(departureAirportId, arrivalAirportId, flightDate);
     }
 }

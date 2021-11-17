@@ -18,13 +18,13 @@ public class AirlineController {
     @Autowired
     AirlineService airlineService;
 
-    @PostMapping
+    @RequestMapping(method = RequestMethod.POST, consumes = "application/json")
     public ResponseEntity<Airline> AddAirline(@Validated @RequestBody AirlineRequest airlineRequest){
         Airline airline = airlineService.addAirline(airlineRequest);
         return new ResponseEntity<>(airline, HttpStatus.CREATED);
     }
 
-    @GetMapping
+    @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<List<Airline>>  getAllAirlines(){
         List<Airline> airlines = airlineService.findAll();
         return new ResponseEntity<>(airlines, HttpStatus.OK);

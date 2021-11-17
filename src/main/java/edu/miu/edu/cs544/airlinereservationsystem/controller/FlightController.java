@@ -6,6 +6,7 @@ import edu.miu.edu.cs544.airlinereservationsystem.model.FlightTripRequest;
 import edu.miu.edu.cs544.airlinereservationsystem.services.FlightService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Date;
@@ -19,40 +20,39 @@ public class FlightController {
     @Autowired
     FlightService flightService;
 
-    @PostMapping
-    @ResponseStatus(value = HttpStatus.CREATED)
-    public Flight AddFlight(@RequestBody Flight flight){
-        return flightService.addFlight(flight);
+    @RequestMapping(method = RequestMethod.POST, consumes = "application/json")
+    public ResponseEntity<Flight> AddFlight(@RequestBody Flight flight) {
+        return new ResponseEntity<>(flightService.addFlight(flight), HttpStatus.CREATED);
     }
 
-    @GetMapping
-    @ResponseStatus(value = HttpStatus.OK)
-    public List<Flight> getAllAirlines(){
-        return flightService.findAll();
+    @RequestMapping(method = RequestMethod.GET)
+    public ResponseEntity<List<Flight>> getAllAirlines(){
+        List<Flight> flights = flightService.findAll();
+        return new ResponseEntity<>(flights, HttpStatus.OK);
     }
 
-    @GetMapping("/{id}")
-    @ResponseStatus(value = HttpStatus.OK)
-    public Optional<Flight> getById(@PathVariable("id") Long id){
-        return flightService.findById(id);
+    @RequestMapping(value = "/{id}", method = RequestMethod.GET)
+    public ResponseEntity<Flight> getById(@PathVariable("id") Long id){
+        Flight flight = flightService.findById(id);
+        return new ResponseEntity<>(flight, HttpStatus.OK);
     }
 
-    @PutMapping("/{id}")
-    @ResponseStatus(value = HttpStatus.OK)
-    public Flight updateAirline(@PathVariable("id") Long id, @RequestBody Flight flight){
-        return flightService.updateFlight(id, flight);
+    @RequestMapping(value = "/{id}", method = RequestMethod.PUT)
+    public ResponseEntity<Flight> updateAirline(@PathVariable("id") Long id, @RequestBody Flight flight){
+        Flight updatedFlight = flightService.updateFlight(id, flight);
+        return new ResponseEntity<>(updatedFlight, HttpStatus.OK);
     }
 
-    @DeleteMapping("/{id}")
-    @ResponseStatus(value = HttpStatus.OK)
-    public void deleteFlight(@PathVariable("id") Long id){
+    @RequestMapping(value = "/{id}", method = RequestMethod.DELETE)
+    public ResponseEntity<Void>  deleteFlight(@PathVariable("id") Long id){
         flightService.deleteFlight(id);
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
-    @GetMapping("/flightTrips")
-    @ResponseStatus(value = HttpStatus.OK)
-    public List<Flight> flightTrips(@RequestBody FlightTripRequest flightTripRequest){
-        return flightService.flightTrips(flightTripRequest);
+    @RequestMapping(value = "/flightTrips", method = RequestMethod.GET)
+    public ResponseEntity<List<Flight>> flightTrips(@RequestBody FlightTripRequest flightTripRequest){
+        List<Flight> flights = flightService.flightTrips(flightTripRequest);
+        return new ResponseEntity<>(flights, HttpStatus.OK);
     }
 
 }
