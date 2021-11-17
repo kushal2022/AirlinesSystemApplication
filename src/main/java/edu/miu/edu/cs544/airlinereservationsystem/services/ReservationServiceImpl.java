@@ -65,7 +65,6 @@ public class ReservationServiceImpl implements ReservationService {
         myReservation.setAgent(agent);
         myReservation.setConfirmed(reservationRequest.isConfirmed());
         myReservation.setStatus(reservationRequest.getStatus());
-        myReservation.setPurchased(reservationRequest.isPurchased());
         myReservation.setFlightDate(reservationRequest.getFlightDate());
 
         return reservationRepository.save(myReservation);
@@ -94,7 +93,6 @@ public class ReservationServiceImpl implements ReservationService {
             newReservation.setAgent(reservationRequest.getAgent());
             newReservation.setConfirmed(reservationRequest.isConfirmed());
             newReservation.setStatus(reservationRequest.getStatus());
-            newReservation.setPurchased(reservationRequest.isPurchased());
             newReservation.setFlightDate(reservationRequest.getFlightDate());
             log.info("updateReservation - Saving reservationRequest: {}", newReservation);
             return reservationRepository.save(newReservation);
