@@ -69,4 +69,9 @@ public class PassengerServiceImpl implements PassengerService {
     public void deletePassenger(Long id) {
         passengerRepository.deleteById(id);
     }
+
+    @Override
+    public Passenger findByUsername(String passengerUsername) {
+        return passengerRepository.findByUsername(passengerUsername);
+    }
 }

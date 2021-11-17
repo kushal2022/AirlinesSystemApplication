@@ -13,4 +13,6 @@ public interface PassengerService {
     Passenger getPassenger(Long id);
     void updatePassenger(Long id, Passenger passenger);
     void deletePassenger(Long id);
+
+    Passenger findByUsername(String passengerUsername);
 }

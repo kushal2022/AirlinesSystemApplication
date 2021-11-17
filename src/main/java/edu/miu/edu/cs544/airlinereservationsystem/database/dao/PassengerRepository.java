@@ -15,4 +15,6 @@ public interface PassengerRepository extends JpaRepository<Passenger, Long> {
     @Query(value = "SELECT DISTINCT p.* FROM Reservation r JOIN Reservation_Passenger rp ON r.id = rp.reservation_id\n" +
             "JOIN Passenger p ON p.id= rp.passenger_id  WHERE r.agent_id = ?1", nativeQuery = true)
     List<Passenger> getPassengersByAgent(Long id);
+
+    Passenger findByUsername(String passengerUsername);
 }

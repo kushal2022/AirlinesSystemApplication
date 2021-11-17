@@ -6,6 +6,7 @@ import edu.miu.edu.cs544.airlinereservationsystem.services.AirlineService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -31,6 +32,7 @@ public class AirlineController {
     }
 
     @RequestMapping(value = "/airport/{id}", method = RequestMethod.GET)
+    @PreAuthorize("hasRole('PASSENGER') OR hasRole('AGENT') OR hasRole('ADMIN')")
     public ResponseEntity<List<Airline>> getAirlinesFlyingFromAirportX(@PathVariable Long id) {
         List<Airline> airlines = airlineService.getAirlinesFlyingFromAirportX(id);
         return new ResponseEntity<>(airlines, HttpStatus.OK);

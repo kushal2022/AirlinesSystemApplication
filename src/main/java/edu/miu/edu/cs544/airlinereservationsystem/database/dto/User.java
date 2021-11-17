@@ -38,7 +38,6 @@ public abstract class User {
     @NotNull(message = "username cannot be null")
     @NotBlank(message = "username cannot be empty")
     @Column(unique=true)
-    @Transient
     private String username;
 
     @Size(min = 4, max = 20)
