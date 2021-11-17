@@ -7,7 +7,7 @@ import edu.miu.edu.cs544.airlinereservationsystem.model.FlightTripRequest;
 import java.util.List;
 
 public interface FlightService {
-    Flight addFlight(FlightRequest flightRequest);
+    Flight addFlight(Flight flight);
     List<Flight> findAll();
     Flight findById(Long id);
     Flight updateFlight(Long id, FlightRequest flightRequest);

@@ -1,6 +1,8 @@
 package edu.miu.edu.cs544.airlinereservationsystem.services;
 
 import edu.miu.edu.cs544.airlinereservationsystem.database.dao.FlightRepository;
+import edu.miu.edu.cs544.airlinereservationsystem.database.dto.Airline;
+import edu.miu.edu.cs544.airlinereservationsystem.database.dto.Airport;
 import edu.miu.edu.cs544.airlinereservationsystem.database.dto.Flight;
 import edu.miu.edu.cs544.airlinereservationsystem.model.FlightRequest;
 import edu.miu.edu.cs544.airlinereservationsystem.model.FlightTripRequest;
@@ -17,17 +19,39 @@ public class FlightServiceImpl implements FlightService {
     @Autowired
     FlightRepository repository;
 
-    @Override
-    public Flight addFlight(FlightRequest flightRequest) {
+//    @Override
+//    public Flight addFlight(FlightRequest flightRequest) {
+//
+//        Flight flight = new Flight();
+//        flight.setDepartureTime(flightRequest.getDepartureTime());
+//        flight.setArrivalTime(flightRequest.getArrivalTime());
+//        flight.setCapacity(flightRequest.getCapacity());
+//
+//        Long airlineId = flightRequest.getAirlineId();
+//        Airline airline = new Airline();
+//        airline.setId(airlineId);
+//        flight.setAirline(airline);
+//
+//        Long arrivalAirportId = flightRequest.getArrivalAirportId();
+//        Airport arrivalAirport = new Airport();
+//        arrivalAirport.setId(arrivalAirportId);
+//        flight.setArrivalAirport(arrivalAirport);
+//
+//        Long departureAirportId = flightRequest.getDepartureAirportId();
+//        Airport departureAirport = new Airport();
+//        departureAirport.setId(departureAirportId);
+//        flight.setDepartureAirport(departureAirport);
+//
+//
+////        flight.setArrivalAirport(new Airport(flightRequest.getArrivalAirportId()));
+////        flight.setDepartureAirport(new Airport(flightRequest.getArrivalAirportId()));
+//
+//        flight.setNumber(flightRequest.getNumber());
+//        return repository.save(flight);
+//    }
 
-        Flight flight = new Flight();
-        flight.setDepartureTime(flightRequest.getDepartureTime());
-        flight.setArrivalTime(flightRequest.getArrivalTime());
-        flight.setCapacity(flightRequest.getCapacity());
-        flight.setAirline(flightRequest.getAirline());
-        flight.setArrivalAirport(flightRequest.getArrivalAirport());
-        flight.setDepartureAirport(flightRequest.getDepartureAirport());
-        flight.setNumber(flightRequest.getNumber());
+    @Override
+    public Flight addFlight(Flight flight) {
         return repository.save(flight);
     }
 
@@ -49,9 +73,22 @@ public class FlightServiceImpl implements FlightService {
             Flight flight1 = entity.get();
             flight1.setNumber(flightRequest.getNumber());
             flight1.setCapacity(flightRequest.getCapacity());
-            flight1.setAirline(flightRequest.getAirline());
-            flight1.setDepartureAirport(flightRequest.getDepartureAirport());
-            flight1.setArrivalAirport(flightRequest.getArrivalAirport());
+
+            Long airlineId = flightRequest.getAirlineId();
+            Airline airline = new Airline();
+            airline.setId(airlineId);
+            flight1.setAirline(airline);
+
+            Long arrivalAirportId = flightRequest.getArrivalAirportId();
+            Airport arrivalAirport = new Airport();
+            arrivalAirport.setId(arrivalAirportId);
+            flight1.setArrivalAirport(arrivalAirport);
+
+            Long departureAirportId = flightRequest.getDepartureAirportId();
+            Airport departureAirport = new Airport();
+            departureAirport.setId(departureAirportId);
+            flight1.setDepartureAirport(departureAirport);
+
             flight1.setDepartureTime(flightRequest.getDepartureTime());
             flight1.setArrivalTime(flightRequest.getArrivalTime());
             return repository.save(flight1);

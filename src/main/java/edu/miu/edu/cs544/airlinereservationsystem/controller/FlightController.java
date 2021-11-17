@@ -20,8 +20,9 @@ public class FlightController {
     FlightService flightService;
 
     @RequestMapping(method = RequestMethod.POST, consumes = "application/json")
-    public ResponseEntity<Flight> AddFlight(@RequestBody FlightRequest flight) {
-        return new ResponseEntity<>(flightService.addFlight(flight), HttpStatus.CREATED);
+    public ResponseEntity<Long> AddFlight(@RequestBody Flight flight) {
+        Flight newFlight = flightService.addFlight(flight);
+        return new ResponseEntity<>(newFlight.getId(), HttpStatus.CREATED);
     }
 
     @RequestMapping(method = RequestMethod.GET)
@@ -53,5 +54,4 @@ public class FlightController {
         List<Flight> flights = flightService.flightTrips(flightTripRequest);
         return new ResponseEntity<>(flights, HttpStatus.OK);
     }
-
 }

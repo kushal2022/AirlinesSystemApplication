@@ -1,10 +1,7 @@
 package edu.miu.edu.cs544.airlinereservationsystem.database.dto;
 
-import lombok.Data;
-
-import javax.persistence.*;
+import javax.persistence.Entity;
 
 @Entity
-@Data
 public class Passenger extends User {
 }

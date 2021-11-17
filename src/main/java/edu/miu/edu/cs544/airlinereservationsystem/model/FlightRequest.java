@@ -17,13 +17,13 @@ public class FlightRequest {
     private int capacity;
 
     @NotNull(message = "airline cannot be null")
-    private Airline airline;
+    private Long airlineId;
 
     @NotNull(message = "departureAirport cannot be null")
-    private Airport departureAirport;
+    private Long departureAirportId;
 
     @NotNull(message = "arrivalAirport cannot be null")
-    private Airport arrivalAirport;
+    private Long arrivalAirportId;
 
     @NotNull(message = "departureTime cannot be null")
     private LocalTime departureTime;

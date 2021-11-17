@@ -28,4 +28,8 @@ public class Airport {
     @NotNull(message = "address cannot be null")
     @OneToOne(cascade = {CascadeType.ALL})
     private Address address;
+
+    public Airport(Long id) {
+        this.id = id;
+    }
 }

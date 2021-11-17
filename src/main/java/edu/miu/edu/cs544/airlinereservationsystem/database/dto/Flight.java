@@ -23,23 +23,24 @@ public class Flight {
     @Column(nullable = false)
     private int capacity;
 
-    @NotNull(message = "airline cannot be null")
-    @OneToOne(cascade = CascadeType.PERSIST)
+    @NotNull
+    @OneToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "airline_id", referencedColumnName = "id")
     private Airline airline;
 
     @NotNull(message = "departureAirport cannot be null")
-    @OneToOne(cascade = CascadeType.PERSIST)
+    @OneToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "departureAirport_id", referencedColumnName = "id")
     private Airport departureAirport;
 
     @NotNull(message = "arrivalAirport cannot be null")
-    @OneToOne(cascade = CascadeType.PERSIST)
+    @OneToOne(cascade = CascadeType.MERGE)
+    @JoinColumn(name = "arrivalAirport_id", referencedColumnName = "id")
     private Airport arrivalAirport;
 
     @NotNull(message = "departureTime cannot be null")
-//    @Future
     private LocalTime departureTime;
 
     @NotNull(message = "arrivalTime cannot be null")
-//    @Future
     private LocalTime arrivalTime;
 }

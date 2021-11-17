@@ -2,6 +2,7 @@ package edu.miu.edu.cs544.airlinereservationsystem.database.dao;
 
 import edu.miu.edu.cs544.airlinereservationsystem.database.dto.Flight;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.data.jpa.repository.Query;
 
 import java.time.LocalDate;
@@ -13,5 +14,10 @@ public interface FlightRepository extends JpaRepository<Flight, Long> {
             "JOIN Reservation r ON r.id = rf.Reservation_id " +
             "WHERE arrivalAirport_id = ?1 and departureAirport_id = ?2 and r.flightDate = ?3", nativeQuery = true)
     List<Flight> getFlightByDateAndAirport(Long departureAirportId, Long arrivalAirportId, LocalDate date);
+
+
+//    @Modifying
+//    @Query("Inse Reservation SET isConfirmed = 1 WHERE id = ?1")
+//    void confirmReservation(Long id);
     
 }
