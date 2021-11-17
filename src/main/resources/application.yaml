@@ -2,13 +2,25 @@ server:
   port: 8080
   servlet:
     context-path: /airline-reservation-system/v1
+spring-boot-server:
+  name: oauth2-server
+security:
+  user:
+    name: app-user
+    password: c1e3d0fa-5aa8-4be7-83f7-32974dd617bf
+  oauth2:
+    client:
+      clientId: group6
+      clientSecret: group6
+    resource:
+      token-info-uri: http://localhost:9001/oauth/check_token
 spring:
   application:
     name: airline-reservation-system
   datasource:
     url: jdbc:mysql://localhost/airlinesdb?createDatabaseIfNotExist=true&autoReconnect=true&useSSL=false
     username: root
-    password: P@ssw0rd
+    password:  P@ssw0rd
     driverClassName: com.mysql.cj.jdbc.Driver
     hikari:
       maximumPoolSize: 10

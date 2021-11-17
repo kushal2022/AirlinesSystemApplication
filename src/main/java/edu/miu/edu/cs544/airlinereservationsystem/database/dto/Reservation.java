@@ -16,16 +16,16 @@ public class Reservation {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @ManyToOne(cascade ={CascadeType.PERSIST})
+    @ManyToOne(cascade =CascadeType.PERSIST)
     @JoinTable(name = "Reservation_Passenger", joinColumns = {@JoinColumn(name = "reservation_id")},
             inverseJoinColumns = {@JoinColumn(name = "passenger_Id")})
     private Passenger passenger;
 
-    @OneToMany(cascade = CascadeType.PERSIST)
+    @ManyToMany(cascade = CascadeType.PERSIST)
     @JoinTable(name = "Reservation_Flight")
     private List<Flight> flight;
 
-    @OneToOne(cascade ={CascadeType.PERSIST})
+    @OneToOne(cascade =CascadeType.PERSIST)
     private Agent agent;
 
     @Column(nullable = false)
